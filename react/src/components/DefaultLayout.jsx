@@ -9,16 +9,25 @@ export default function DefaultLayout() {
         return <Navigate to="/login" />
     }
 
+    const onLogout = (ev) => {
+        ev.DefaultLayout();
+    }
+
     return (
         <div id="defaultLayout">
             <aside>
-                <Link to="/Dashboard">Dashboard</Link>
-                <Link to="/Users">Users</Link>
+                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/users">Users</Link>
             </aside>
             <div className="content">
                 <header>
-                    <div>Header</div>
-                    <div>User info</div>
+                    <div>
+                        Header
+                    </div>
+                    <div>
+                        {user.name}
+                        <a href="#" onClick={onLogout} className="btn-logout"></a>
+                    </div>
                 </header>
                 <main>
                     <Outlet />
