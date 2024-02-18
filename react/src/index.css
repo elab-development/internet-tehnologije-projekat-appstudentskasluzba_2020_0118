@@ -102,6 +102,10 @@ table {
     border-radius: 5px;
 }
 
+table > thead {
+    border-radius: 10px;
+}
+
 table > thead > tr > th {
     text-align: left;
     padding: 0.5rem 0.5rem;

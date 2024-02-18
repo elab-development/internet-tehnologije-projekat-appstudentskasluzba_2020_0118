@@ -38,11 +38,12 @@ export default function Signup() {
             <div className="form">
                 <form onSubmit={onSubmit}>
                     <h1 className="title">Registracija</h1>
-                    {errors && <div className="alert">
-                        {Object.keys(errors).map(key => (
-                            <p key={key}>{errors[key][0]}</p>
-                        ))}
-                    </div>
+                    {errors &&
+                        <div className="alert">
+                            {Object.keys(errors).map(key => (
+                                <p key={key}>{errors[key][0]}</p>
+                            ))}
+                        </div>
                     }
                     <input ref={nameRef} placeholder="Ime i Prezime" />
                     <input ref={emailRef} type="email" placeholder="E-mail Adresa" />
