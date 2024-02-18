@@ -11,25 +11,25 @@ export default function UserForm() {
     const { setNotification } = useStateContext()
     const [user, setUser] = useState({
         id: null,
+        role: '',
         name: '',
         email: '',
         password: '',
         password_confirmation: ''
     })
 
-    if (id) {
-        useEffect(() => {
+    useEffect(() => {
+        if (id) {
             setLoading(true);
             axiosClient.get(`/users/${id}`)
                 .then(({ data }) => {
-                    setLoading(false)
                     setUser(data);
                 })
-                .catch(() => {
+                .finally(() => {
                     setLoading(false)
                 })
-        }, [])
-    }
+        }
+    }, [])
 
     const onSubmit = (ev) => {
         ev.preventDefault();
@@ -62,8 +62,10 @@ export default function UserForm() {
 
     return (
         <>
-            {user.id && <h1>Ažuriranje Korisnika: {user.name}</h1>}
-            {!user.id && <h1>Novi Korisnik</h1>}
+            <header>
+                {user.id && <h1>Ažuriranje Korisnika: {user.name}</h1>}
+                {!user.id && <h1>Novi Korisnik</h1>}
+            </header>
             <div className="card animated fadeInDown">
                 {loading && (
                     <div className="text-center">Učitavanje...</div>
@@ -77,6 +79,12 @@ export default function UserForm() {
                 }
                 {!loading &&
                     <form onSubmit={onSubmit}>
+                        <select onChange={ev => setUser({ ...user, role: ev.target.value })} value={user.role} required>
+                            <option value="">Izaberite ulogu</option>
+                            <option value="student">Student</option>
+                            <option value="profesor">Profesor</option>
+                            <option value="admin">Admin</option>
+                        </select>
                         <input onChange={ev => setUser({ ...user, name: ev.target.value })} value={user.name} placeholder="Ime" />
                         <input onChange={ev => setUser({ ...user, email: ev.target.value })} type="email" value={user.email} placeholder="E-mail" />
                         <input onChange={ev => setUser({ ...user, password: ev.target.value })} type="password" placeholder="Lozinka" />

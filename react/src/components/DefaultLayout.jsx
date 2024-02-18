@@ -30,19 +30,15 @@ export default function DefaultLayout() {
     return (
         <div id="defaultLayout">
             <aside>
-                <Link to="/dashboard">Dashboard</Link>
-                <Link to="/users">Users</Link>
+                <img src="/logo-512.png" alt="" />
+                <h1 style={{ color: 'white' }}>{user.name}</h1>
+                <Link to="/news">Vesti</Link>
+                {user.role === 'admin' &&
+                    <Link to="/users">Korisnici</Link>
+                }
+                <a href="#" onClick={onLogout} className="btn-logout">Logout</a>
             </aside>
             <div className="content">
-                <header>
-                    <div>
-                        Header
-                    </div>
-                    <div>
-                        {user.name}
-                        <a href="#" onClick={onLogout} className="btn-logout">Logout</a>
-                    </div>
-                </header>
                 <main>
                     <Outlet />
                 </main>

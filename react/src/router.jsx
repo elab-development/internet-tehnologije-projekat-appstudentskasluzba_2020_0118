@@ -3,7 +3,7 @@ import Login from "./views/Login";
 import Signup from "./views/Signup";
 import Users from "./views/Users";
 import NotFound from "./views/NotFound";
-import Dashboard from "./views/Dashboard"
+import News from "./views/News"
 import GuestLayout from "./components/GuestLayout";
 import DefaultLayout from "./components/DefaultLayout";
 import UserForm from "./views/UserForm";
@@ -15,11 +15,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Navigate to='/users' />
+                element: <Navigate to='/news' />
             },
             {
-                path: '/dashboard',
-                element: <Dashboard />
+                path: '/news',
+                element: <News />
             },
             {
                 path: '/users',
@@ -46,7 +46,6 @@ const router = createBrowserRouter([
             {
                 path: '/signup',
                 element: <Signup />
-
             },
         ]
     },

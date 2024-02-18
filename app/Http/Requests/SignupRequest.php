@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Requests;
-use Illuminate\Validation\Rules\Password;
+
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rule;
 
 class SignupRequest extends FormRequest
 {
@@ -22,15 +24,21 @@ class SignupRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'role' => [
+                'required',
+                'string',
+                'max:55',
+                Rule::in(['student', 'profesor', 'admin']),
+            ],
             'name' => 'required|string|max:55',
             'email' => 'required|email|unique:users,email',
             'password' => [
                 'required',
                 'confirmed',
-                Password::min(8)
+                Password::min(3)
                     ->letters()
-                    ->symbols()
-                    ->numbers()
+                // ->symbols()
+                // ->numbers()
             ]
         ];
     }

@@ -13,23 +13,23 @@ export default function Signup() {
     const { setUser, setToken } = useStateContext();
 
     const onSubmit = (ev) => {
-        ev.preventDefault();
+        ev.preventDefault()
         const payload = {
+            role: "student",
             name: nameRef.current.value,
             email: emailRef.current.value,
             password: passwordRef.current.value,
             password_confirmation: passwordConfirmationRef.current.value,
         }
-        console.log(payload);
+        console.log(payload)
         axiosClient.post('/signup', payload)
             .then(({ data }) => {
                 setUser(data.user)
                 setToken(data.token)
             })
             .catch(err => {
-                const response = err.response;
-                if (response && response.status === 422) {
-                    setErrors(response.data.errors);
+                if (err.response && err.response.status === 422) {
+                    setErrors(err.response.data.errors);
                 }
             });
     };
@@ -37,6 +37,7 @@ export default function Signup() {
         <div className="login-signup-form animated fadeInDown">
             <div className="form">
                 <form onSubmit={onSubmit}>
+                    <img src="/logo-512.png" alt="" />
                     <h1 className="title">Registracija</h1>
                     {errors &&
                         <div className="alert">

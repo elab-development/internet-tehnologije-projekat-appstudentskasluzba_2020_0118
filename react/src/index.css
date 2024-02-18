@@ -20,7 +20,8 @@ body {
     background-color: #f6f6f6;
 }
 
-input {
+input,
+select {
     outline: 0;
     background: #ffffff;
     width: 100%;
@@ -33,7 +34,8 @@ input {
     border-radius: 5px;
 }
 
-input:focus {
+input:focus,
+select:focus {
     border-color: #001938;
 }
 
@@ -77,12 +79,13 @@ input:focus {
 .btn-logout {
     text-decoration: none;
     padding: 0.75rem 1.5rem;
-    color: #212121;
-    transition: all 0.3s;
+    color: #fefefe;
+    background-color: #b72424;
     border-radius: 6px;
+    margin: 15px;
 }
 .btn-logout:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    /* background-color: rgba(0, 0, 0, 0.1); */
 }
 
 .btn:hover,
@@ -110,7 +113,19 @@ table > thead > tr > th {
     text-align: left;
     padding: 0.5rem 0.5rem;
     background-color: #efefef;
+    color: #001938dd;
 }
+
+table thead tr th:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+  
+  table thead tr th:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
 
 table > tbody > tr > td {
     padding: 0.5rem 0.5rem;
@@ -192,17 +207,33 @@ table > tbody > tr > td {
     display: flex;
 }
 
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+aside > img,
+form > img {
+    max-width: 50%;
+}
+
 #defaultLayout aside {
     width: 240px;
     background-color: #001938;
-    padding: 1rem
+    padding: 1rem;
+    text-align: center;
 }
 
-#defaultLayout aside > a {
+#defaultLayout aside > a,
+#defaultLayout aside > h1 {
     display: block;
     padding: 0.75rem 1rem;
     border-radius: 6px;
+    margin: 10px 0;
     color: white;
+    background-color: #002d65;
     text-decoration: none;
     transition: all 0.2s;
 }
@@ -223,6 +254,7 @@ table > tbody > tr > td {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 5px;
 }
 
 #defaultLayout main {
@@ -250,4 +282,12 @@ table > tbody > tr > td {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+a {
+    display: inline-block;
+}
+button:hover,
+a:hover {
+    transform: scale(1.025) !important;
 }

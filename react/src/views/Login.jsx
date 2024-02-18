@@ -42,6 +42,7 @@ export default function Login() {
         <div className="login-signup-form animated fadeInDown">
             <div className="form">
                 <form onSubmit={onSubmit}>
+                    <img src="/logo-512.png" alt="" />
                     <h1 className="title">Prijava</h1>
                     {errors && <div className="alert">
                         {Object.keys(errors).map(key => (

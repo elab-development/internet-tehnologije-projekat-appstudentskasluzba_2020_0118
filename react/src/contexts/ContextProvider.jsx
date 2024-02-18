@@ -30,14 +30,7 @@ export const ContextProvider = ({ children }) => {
         }
     }
     return (
-        <StateContext.Provider value={{
-            user,
-            setUser,
-            token,
-            setToken,
-            notification,
-            setNotification
-        }}>
+        <StateContext.Provider value={{ user, token, notification, setUser, setToken, setNotification }}>
             {children}
         </StateContext.Provider>
     )

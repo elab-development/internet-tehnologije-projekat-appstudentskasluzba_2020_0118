@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axiosClient from "../axios-client";
+import { useStateContext } from "../contexts/ContextProvider";
 
 export default function Users() {
-    const [users, setUsers] = useState([]);
+    const [currentUserRole, setCurrentUserRole] = useState()
+    const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
+    const { setNotification } = useStateContext()
+    const navigate = useNavigate();
 
     useEffect(() => {
-        getUsers();
+        axiosClient.get('/user')
+            .then(({ data }) => {
+                if (data.role !== 'admin') {
+                    navigate('/news');
+                } else {
+                    getUsers();
+                }
+            });
     }, [])
 
     const onDelete = (u) => {
@@ -16,7 +27,7 @@ export default function Users() {
         }
         axiosClient.delete(`/users/${u.id}`)
             .then(() => {
-                //TODO prikazi notifikaciju
+                setNotification("Korisnik je uspešno obrisan!")
                 getUsers()
             })
     }
@@ -36,16 +47,17 @@ export default function Users() {
 
     return (
         <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h1>Korisnici</h1>
-                <Link to="/users/new" className='btn-add'>Dodaj</Link>
-            </div>
+                <Link to="/users/new" className='btn-add'>Dodaj Novog Korisnika</Link>
+            </header>
             <div className='card animated fadeInDown'>
                 <table>
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Ime</th>
+                            <th>Uloga</th>
+                            <th>Ime i Prezime</th>
                             <th>E-mail</th>
                             <th>Datum Kreiranja</th>
                             <th>Akcije</th>
@@ -65,6 +77,7 @@ export default function Users() {
                             {users.map(u => (
                                 <tr key={u.id}>
                                     <td>{u.id}</td>
+                                    <td>{u.role.charAt(0).toUpperCase() + u.role.slice(1)}</td>
                                     <td>{u.name}</td>
                                     <td>{u.email}</td>
                                     <td>{u.created_at}</td>
@@ -78,6 +91,11 @@ export default function Users() {
                         </tbody>
                     }
                 </table>
+                <div style={{ padding: '20px 10px', display: 'flex', justifyContent: 'start', alignContent: 'center' }}>
+                    <Link to={'/users/'} className='btn-edit'>Prethodna Strana</Link>
+                    &nbsp;
+                    <Link to={'/users/'} className='btn-edit'>Naredna Strana</Link>
+                </div>
             </div>
         </div>
     )
