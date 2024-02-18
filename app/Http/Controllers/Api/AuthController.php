@@ -21,7 +21,7 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-        $user->createToken('main')->plainTextToken;
+        $token = $user->createToken('main')->plainTextToken;
         return response(compact('user', 'token'));
     }
 
@@ -43,7 +43,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         /** @var User $user */
-        $user = $request->user;
+        $user = $request->user();
         $user->currentAccessToken()->delete();
         return response('', 204);
     }
