@@ -91,11 +91,11 @@ export default function Users() {
                         </tbody>
                     }
                 </table>
-                <div style={{ padding: '20px 10px', display: 'flex', justifyContent: 'start', alignContent: 'center' }}>
+                {/* <div style={{ padding: '20px 10px', display: 'flex', justifyContent: 'start', alignContent: 'center' }}>
                     <Link to={'/users/'} className='btn-edit'>Prethodna Strana</Link>
                     &nbsp;
                     <Link to={'/users/'} className='btn-edit'>Naredna Strana</Link>
-                </div>
+                </div> */}
             </div>
         </div>
     )
