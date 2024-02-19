@@ -13,7 +13,7 @@ class PostController extends Controller
     public function index()
     {
         return PostResource::collection(
-            Post::query()->orderBy("id", "desc")->paginate(10)
+            Post::query()->orderBy("id", "desc")->paginate()
         );
     }
 

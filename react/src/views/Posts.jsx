@@ -51,16 +51,16 @@ export default function Posts() {
             </header>
             <div className='card animated fadeInDown'>
                 {loading && <div className='text-center'>Učitavanje...</div>}
-                {!loading && (
+            {!loading && (
                     <div>
-                        {posts.map(post => (
+                        {posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map(post => (
                             <div key={post.id} className='post-container'>
                                 <div>
                                     <div style={{ marginBottom: '10px' }}>
-                                        <h1>{post.title}</h1>
+                                        <h2>{post.title}</h2>
                                         <p>{post.content}</p>
                                     </div>
-                                    <h3>{post.created_at.slice(0, 10)}</h3>
+                                    <h3>{post.created_at}</h3>
                                 </div>
                                 <div className='post-buttons'>
                                     {(currentUserRole === 'admin' || currentUserRole === 'profesor') && (
@@ -74,7 +74,6 @@ export default function Posts() {
                         ))}
                     </div>
                 )}
-                {/* Paginacija ako je potrebna */}
             </div>
         </div>
     );
