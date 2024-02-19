@@ -7,14 +7,9 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Http\Resources\UserResource;
-use \Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return AnonymousResourceCollection
-     */
     public function index()
     {
         return UserResource::collection(
@@ -22,9 +17,6 @@ class UserController extends Controller
         );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreUserRequest $request)
     {
         $data = $request->validated();
@@ -33,17 +25,11 @@ class UserController extends Controller
         return response([new UserResource($user), 201]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(User $user)
     {
         return new UserResource($user);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateUserRequest $request, User $user)
     {
         $data = $request->validated();
@@ -53,9 +39,6 @@ class UserController extends Controller
         $user->update($data);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(User $user)
     {
         $user->delete();

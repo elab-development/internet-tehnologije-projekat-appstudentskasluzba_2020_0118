@@ -4,7 +4,7 @@ import Signup from "./views/Signup";
 import Users from "./views/Users";
 import NotFound from "./views/NotFound";
 import Posts from "./views/Posts"
-import EditPosts from "./views/EditPosts"
+import PostForm from "./views/PostForm"
 import GuestLayout from "./components/GuestLayout";
 import DefaultLayout from "./components/DefaultLayout";
 import UserForm from "./views/UserForm";
@@ -24,8 +24,13 @@ const router = createBrowserRouter([
                 element: <Posts />
             },
             {
-                path: '/edit-posts',
-                element: <EditPosts />
+                path: '/posts/new',
+                element: <PostForm key="postCreate" />
+            },
+            
+            {
+                path: '/posts/:id',
+                element: <PostForm key="postUpdate" />
             },
             {
                 path: '/users',

@@ -14,11 +14,7 @@ export default function Posts() {
         axiosClient.get('/user')
             .then(({ data }) => {
                 setCurrentUserRole(data.role);
-                if (data.role !== 'admin' && data.role !== 'profesor') {
-                    navigate('/news');
-                } else {
-                    getPosts();
-                }
+                getPosts();
             });
     }, [navigate]);
 
@@ -26,8 +22,9 @@ export default function Posts() {
         setLoading(true);
         axiosClient.get('/posts')
             .then(response => {
+                console.log(response.data.data);
                 setLoading(false);
-                setPosts(response.data);
+                setPosts(response.data.data);
             })
             .catch(error => {
                 setLoading(false);
@@ -36,32 +33,38 @@ export default function Posts() {
     };
 
     const onDelete = (post) => {
-        if (currentUserRole === 'admin' && window.confirm("Da li ste sigurni da želite obrisati ovaj post?")) {
-            axiosClient.delete(`/posts/${post.id}`)
-                .then(() => {
-                    setNotification("Post je uspešno obrisan!");
-                    getPosts();
-                });
+        if (currentUserRole === 'admin' && !window.confirm("Da li ste sigurni da želite obrisati ovaj post?")) {
+            return
         }
+        axiosClient.delete(`/posts/${post.id}`)
+            .then(() => {
+                setNotification("Post je uspešno obrisan!");
+                getPosts();
+            });
     };
 
     return (
         <div>
             <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h1>Vesti</h1>
-                {currentUserRole === 'admin' && <Link to="/posts/new" className='btn-add'>Dodaj Novi Post</Link>}
+                {currentUserRole === 'admin' && <Link to="/posts/new" className='btn-add'>Dodaj Novu Vest</Link>}
             </header>
             <div className='card animated fadeInDown'>
                 {loading && <div className='text-center'>Učitavanje...</div>}
                 {!loading && (
                     <div>
                         {posts.map(post => (
-                            <div key={post.id}>
-                                <h1>{post.title}</h1>
-                                <p>{post.text}</p>
+                            <div key={post.id} className='post-container'>
                                 <div>
+                                    <div style={{ marginBottom: '10px' }}>
+                                        <h1>{post.title}</h1>
+                                        <p>{post.content}</p>
+                                    </div>
+                                    <h3>{post.created_at.slice(0, 10)}</h3>
+                                </div>
+                                <div className='post-buttons'>
                                     {(currentUserRole === 'admin' || currentUserRole === 'profesor') && (
-                                        <Link to={`/posts/edit/${post.id}`} className='btn-edit'>Izmeni</Link>
+                                        <Link to={`/posts/${post.id}`} className='btn-edit'>Izmeni</Link>
                                     )}
                                     {currentUserRole === 'admin' && (
                                         <button onClick={() => onDelete(post)} className='btn-delete'>Ukloni</button>
@@ -71,7 +74,6 @@ export default function Posts() {
                         ))}
                     </div>
                 )}
-
                 {/* Paginacija ako je potrebna */}
             </div>
         </div>

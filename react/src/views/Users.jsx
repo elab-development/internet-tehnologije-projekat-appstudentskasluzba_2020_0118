@@ -22,7 +22,7 @@ export default function Users() {
     }, [])
 
     const onDelete = (u) => {
-        if (!window.confirm("Da li ste sigurni da želite obrisati korisnika?")) {
+        if (currentUserRole === 'admin' && !window.confirm("Da li ste sigurni da želite obrisati korisnika?")) {
             return
         }
         axiosClient.delete(`/users/${u.id}`)
@@ -60,7 +60,7 @@ export default function Users() {
                             <th>Ime i Prezime</th>
                             <th>E-mail</th>
                             <th>Datum Kreiranja</th>
-                            <th>Akcije</th>
+                            <th></th>
                         </tr>
                     </thead>
                     {loading &&
