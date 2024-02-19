@@ -3,10 +3,12 @@ import Login from "./views/Login";
 import Signup from "./views/Signup";
 import Users from "./views/Users";
 import NotFound from "./views/NotFound";
-import News from "./views/News"
+import Posts from "./views/Posts"
+import EditPosts from "./views/EditPosts"
 import GuestLayout from "./components/GuestLayout";
 import DefaultLayout from "./components/DefaultLayout";
 import UserForm from "./views/UserForm";
+
 
 const router = createBrowserRouter([
     {
@@ -15,11 +17,15 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Navigate to='/news' />
+                element: <Navigate to='/posts' />
             },
             {
-                path: '/news',
-                element: <News />
+                path: '/posts',
+                element: <Posts />
+            },
+            {
+                path: '/edit-posts',
+                element: <EditPosts />
             },
             {
                 path: '/users',

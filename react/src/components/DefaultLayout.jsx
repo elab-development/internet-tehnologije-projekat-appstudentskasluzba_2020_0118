@@ -31,10 +31,12 @@ export default function DefaultLayout() {
         <div id="defaultLayout">
             <aside>
                 <img src="/logo-512.png" alt="" />
-                <h1 style={{ color: 'white' }}>{user.name}</h1>
-                <Link to="/news">Vesti</Link>
+                <h1 style={{ color: 'white' }}> {user.role.charAt(0).toUpperCase() + user.role.slice(1)} <br /> {user.name}</h1>
+                <Link to="/posts">Vesti</Link>
                 {user.role === 'admin' &&
-                    <Link to="/users">Korisnici</Link>
+                    <>
+                        <Link to="/users">Korisnici</Link>
+                    </>
                 }
                 <a href="#" onClick={onLogout} className="btn-logout">Logout</a>
             </aside>
