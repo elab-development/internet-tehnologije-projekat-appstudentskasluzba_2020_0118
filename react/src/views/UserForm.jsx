@@ -63,8 +63,7 @@ export default function UserForm() {
     return (
         <>
             <header>
-                {user.id && <h1>Ažuriranje Korisnika: {user.name}</h1>}
-                {!user.id && <h1>Novi Korisnik</h1>}
+                {user.id ? <h1>Ažuriranje Korisnika: {user.name}</h1> : <h1>Novi Korisnik</h1>},
             </header>
             <div className="card animated fadeInDown">
                 {loading && (

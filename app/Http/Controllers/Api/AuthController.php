@@ -14,7 +14,6 @@ class AuthController extends Controller
     public function signup(SignupRequest $request)
     {
         $data = $request->validated();
-        /** @var User $user */
         $user = User::create([
             'role' => $data['role'],
             'name' => $data['name'],
@@ -33,9 +32,7 @@ class AuthController extends Controller
             return response([
                 'message' => 'Netačna e-mail adresa ili lozinka.'
             ], 422);
-        }
-        ;
-        /** @var User $user */
+        };
         $user = Auth::user();
         $token = $user->createToken('main')->plainTextToken;
         return response(compact('user', 'token'));
@@ -43,7 +40,6 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        /** @var User $user */
         $user = $request->user();
         $user->currentAccessToken()->delete();
         return response('', 204);

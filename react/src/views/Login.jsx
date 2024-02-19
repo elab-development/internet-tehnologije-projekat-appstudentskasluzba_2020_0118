@@ -18,7 +18,6 @@ export default function Login() {
             password: passwordRef.current.value,
         }
         setErrors(null);
-        console.log(payload);
         axiosClient.post('/login', payload)
             .then(({ data }) => {
                 setUser(data.user)
@@ -44,11 +43,12 @@ export default function Login() {
                 <form onSubmit={onSubmit}>
                     <img src="/logo-512.png" alt="" />
                     <h1 className="title">Prijava</h1>
-                    {errors && <div className="alert">
-                        {Object.keys(errors).map(key => (
-                            <p key={key}>{errors[key][0]}</p>
-                        ))}
-                    </div>
+                    {errors &&
+                        <div className="alert">
+                            {Object.keys(errors).map(key => (
+                                <p key={key}>{errors[key][0]}</p>
+                            ))}
+                        </div>
                     }
                     <input ref={emailRef} type="email" placeholder="E-mail" />
                     <input ref={passwordRef} type="password" placeholder="Lozinka" />

@@ -20,14 +20,13 @@ export default function PostForm() {
             setLoading(true);
             axiosClient.get(`/posts/${id}`)
                 .then(({ data }) => {
-                    setPost(data);
-                    console.log(post)
+                    setPost(data.data);
                 })
                 .finally(() => {
                     setLoading(false);
                 });
         }
-    }, []);
+    }, [id]);
 
     const onSubmit = (ev) => {
         ev.preventDefault();
@@ -62,7 +61,7 @@ export default function PostForm() {
     return (
         <>
             <header>
-                {post.id ? <h1>Ažuriranje Posta</h1> : <h1>Novi Post</h1>}
+                {post.id ? <h1>Ažuriranje Posta ID:{post.id}</h1> : <h1>Novi Post</h1>},
             </header>
             <div className="card animated fadeInDown">
                 {loading && <div className="text-center">Učitavanje...</div>}

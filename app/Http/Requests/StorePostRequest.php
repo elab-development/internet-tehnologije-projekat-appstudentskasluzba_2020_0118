@@ -11,7 +11,7 @@ class StorePostRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->role === 'admin' || auth()->user()->role === 'profesor';
     }
 
     /**
